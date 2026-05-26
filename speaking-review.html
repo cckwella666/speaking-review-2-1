@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speaking Review · Beitun</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #1B1815;
+      --bg2:       #231F1B;
+      --bg3:       #2C2822;
+      --surface:   #272320;
+      --text:      #D8D0BF;
+      --text-dim:  #8A7F70;
+      --text-faint:#504840;
+      --gold:      #9A8870;
+      --gold-lt:   #BCA888;
+      --border:    #3A342E;
+      --border-lt: #4A4238;
+      --red:       #8B5555;
+      --green:     #4A7060;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 22px;
+      line-height: 1.85;
+      min-height: 100vh;
+    }
+
+    /* ════════════════════════════════
+       HEADER  — double-rule frame
+    ════════════════════════════════ */
+    header {
+      text-align: center;
+      padding: 4rem 2rem 3.5rem;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* outer thin rule */
+    .frame-outer {
+      position: absolute;
+      inset: 1.8rem 2.5rem;
+      border: 1px solid rgba(180,160,120,0.25);
+      pointer-events: none;
+    }
+    /* inner thin rule */
+    .frame-inner {
+      position: absolute;
+      inset: 2.1rem 2.8rem;
+      border: 1px solid rgba(180,160,120,0.15);
+      pointer-events: none;
+    }
+
+    .header-eyebrow {
+      font-family: 'Courier Prime', monospace;
+      font-size: 1.05rem;
+      letter-spacing: 0.38em;
+      color: var(--gold);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 2.2rem;
+    }
+
+    .header-title-block {
+      margin-bottom: 1.6rem;
+    }
+
+    .header-main {
+      font-family: 'Courier Prime', monospace;
+      font-size: 1.05rem;
+      letter-spacing: 0.28em;
+      color: var(--text);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.45rem;
+    }
+
+    .header-sub-text {
+      font-family: 'Courier Prime', monospace;
+      font-size: 1.05rem;
+      letter-spacing: 0.38em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      display: block;
+    }
+
+    .session-tags {
+      display: flex;
+      gap: 0.6rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 1.8rem;
+    }
+
+    .tag {
+      font-family: 'Courier Prime', monospace;
+      font-size: 1.05rem;
+      letter-spacing: 0.12em;
+      padding: 0.25rem 0.8rem;
+      border: 1px solid var(--border-lt);
+      color: var(--text-dim);
+    }
+
+    /* ════════════════════════════════
+       NAV
+    ════════════════════════════════ */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
+
+    .nav-btn {
+      font-family: 'Courier Prime', monospace;
+      font-size: 1.15rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      background: none;
+      border: none;
+      border-bottom: 1px solid transparent;
+      padding: 1rem 1.3rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-btn:hover { color: var(--text); }
+    .nav-btn.active { color: var(--text); border-bottom-color: var(--gold); }
+
+    /* ════════════════════════════════
+       MAIN / SECTIONS
+    ════════════════════════════════ */
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 6rem;
+    }
+
+    .section { display: none; animation: fadeUp 0.35s ease; }
+    .section.active { display: block; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-header {
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .chapter-label {
+      font-family: 'Courier Prime', monospace;
+      font-size: 1.05rem;
+      letter-spacing: 0.24em;
+      color: var(--gold);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.7rem, 4vw, 2.2rem);
+      font-weight: 400;
+      color: var(--text);
+    }
+
+    .section-header p {
+      font-style: italic;
+      color: var(--text-dim);
+      font-size: 1.1rem;
+      margin-top: 0.4rem;
+    }
+
+    .ornament {
+      text-align: center;
+      color: var(--text-faint);
+      font-family: 'Courier Prime', monospace;
+      font-size: 1.15rem;
+      letter-spacing: 0.3em;
+      padding: 2rem 0 1rem;
+    }
+
+    /* ════════════════════════════════
+       BUTTONS
+    ════════════════════════════════ */
+    .btn {
+      font-family: 'Courier Prime', monospace;
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.55rem 1.1rem;
+      border: 1px solid var(--border-lt);
+      background: transparent;
+      color: var(--text-dim);
+      cursor: pointer;
+      transition: all 0.18s;
+      white-space: nowrap;
+    }
+    .btn:hover { background: var(--text); color: var(--bg); border-color: var(--text); }
+    .btn.primary { background: var(--text); color: var(--bg); border-color: var(--text); }
+    .btn.primary:hover { opacity: 0.8; }
+
+    /* ════════════════════════════════
+       I. VOCABULARY
+    ════════════════════════════════ */
+    .vocab-filter {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+
+    .filter-btn {
+      font-family: 'Courier Prime', monospace;
+      font-size: 1.05rem;
+      letter-spacing: 0.1em;
+      padding: 0.26rem 0.75rem;
+      border: 1px solid var(--border-lt);
+      background: transparent;
+      color: var(--text-dim);
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(248px, 1fr));
+      gap: 0.8rem;
+    }
+
+    .vocab-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 1.1rem 1.2rem;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.15s, border-color 0.2s;
+      min-height: 88px;
+    }
+    .vocab-card:hover { transform: translateY(-2px); border-color: var(--border-lt); }
+    .vocab-card.flipped { background: var(--bg2); border-color: var(--gold); }
+
+    .v-word {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--text);
+      display: block;
+      margin-bottom: 0.15rem;
+    }
+    .v-pos {
+      font-family: 'Courier Prime', monospace;
+      font-size: 1.05rem;
+      color: var(--gold);
+      letter-spacing: 0.08em;
+    }
+    .v-badge {
+      position: absolute;
+      top: 0.6rem; right: 0.7rem;
+      font-family: 'Courier Prime', monospace;
+      font-size: 1.15rem;
+      color: var(--text-faint);
+      letter-spacing: 0.05em;
+    }
+    .v-def, .v-zh, .v-example { display: none; margin-top: 0.5rem; }
+    .v-def  { font-size: 1.1rem; color: var(--text); }
+    .v-zh   { font-size: 1rem; color: var(--gold-lt); font-style: italic; }
+    .v-example {
+      font-size: 1rem;
+      color: var(--text-dim);
+      font-style: italic;
+      border-left: 2px solid var(--border-lt);
+      padding-left: 0.7rem;
+      margin-top: 0.4rem;
+    }
+    .vocab-card.flipped .v-def,
+    .vocab-card.flipped .v-zh,
+    .vocab-card.flipped .v-example { display: block; }
+
+    .flip-hint {
+      font-family: 'Courier Prime', monospace;
+      font-size: 1.15rem;
+      color: var(--text-faint);
+      position: absolute;
+      bottom: 0.5rem; right: 0.7rem;
+      letter-spacing: 0.05em;
+    }
+    .vocab-card.flipped .flip-hint { display: none; }
+
+    /* ════════════════════════════════
+       II. LISTENING
+    ════════════════════════════════ */
+    .listen-tip {
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--text-dim);
+      border-left: 3px solid var(--border-lt);
+      padding: 0.75rem 1.1rem;
+      background: var(--surface);
+      margin-bottom: 1.5rem;
+    }
+
+    .voice-bar {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      padding: 0.65rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      margin-bottom: 1.8rem;
+      font-family: 'Courier Prime', monospace;
+      font-size: 1.15rem;
+      color: var(--text-dim);
+    }
+    .voice-bar label { display: flex; align-items: center; gap: 0.4rem; }
+    .voice-bar input[type="range"] { width: 90px; accent-color: var(--gold); cursor: pointer; }
+
+
+    .listen-group { margin-bottom: 2.2rem; }
+
+    .listen-group-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--text-dim);
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .listen-group-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .listen-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      padding: 0.85rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      margin-bottom: 0.5rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .listen-row:hover { background: var(--bg2); }
+    .listen-row.playing { background: var(--bg2); border-color: var(--gold); }
+
+    .play-btn {
+      width: 33px; height: 33px;
+      border-radius: 50%;
+      border: 1px solid var(--border-lt);
+      background: none;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      flex-shrink: 0;
+      margin-top: 0.05rem;
+      transition: all 0.18s;
+    }
+    .play-btn:hover, .play-btn.active {
+      background: var(--text); color: var(--bg); border-color: var(--text);
+    }
+
+    .listen-text { flex: 1; }
+    .listen-en { font-size: 1.35rem; color: var(--text); line-height: 1.65; }
+    .listen-zh { font-size: 1rem; color: var(--text-dim); margin-top: 0.25rem; display: none; }
+    .listen-zh.visible { display: block; }
+
+    .zh-toggle {
+      font-family: 'Courier Prime', monospace;
+      font-size: 1.05rem;
+      letter-spacing: 0.06em;
+      color: var(--gold);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      margin-top: 0.2rem;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      display: block;
+    }
+
+    /* ════════════════════════════════
+       III. SPEAKING
+    ════════════════════════════════ */
+    .prompt-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2rem 2rem 1.5rem;
+      margin-bottom: 1.2rem;
+      position: relative;
+    }
+    .prompt-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background: var(--gold);
+      opacity: 0.5;
+    }
+
+    .prompt-level {
+      font-family: 'Courier Prime', monospace;
+      font-size: 1.05rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.7rem;
+    }
+
+    .prompt-q {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: clamp(1.3rem, 2.5vw, 1.6rem);
+      color: var(--text);
+      line-height: 1.5;
+      margin-bottom: 1.2rem;
+    }
+
+    .prompt-hints {
+      font-size: 1.05rem;
+      color: var(--text-dim);
+      background: var(--bg2);
+      border-left: 2px solid var(--border-lt);
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.2rem;
+      display: none;
+    }
+    .prompt-hints.visible { display: block; }
+    .prompt-hints p { margin-bottom: 0.25rem; }
+
+    .prompt-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .timer-dig {
+      font-family: 'Courier Prime', monospace;
+      font-size: 1.6rem;
+      color: var(--text);
+      min-width: 52px;
+      letter-spacing: 0.05em;
+      transition: color 0.3s;
+    }
+    .timer-dig.urgent { color: var(--red); }
+
+    .prog-bar { height: 1px; background: var(--border); margin-top: 1.2rem; overflow: hidden; }
+    .prog-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--text));
+      width: 100%;
+      transition: width 1s linear;
+    }
+
+    /* ════════════════════════════════
+       IV. GRAMMAR
+    ════════════════════════════════ */
+    .grammar-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .grammar-block h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.45rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.7rem;
+    }
+
+    .formula-box {
+      font-family: 'Courier Prime', monospace;
+      font-size: 1.05rem;
+      background: var(--bg2);
+      border-left: 3px solid var(--gold);
+      padding: 0.55rem 1rem;
+      color: var(--text);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .ex-list { list-style: none; }
+    .ex-list li {
+      font-size: 1.1rem;
+      color: var(--text-dim);
+      padding: 0.3rem 0 0.3rem 1.2rem;
+      position: relative;
+      border-bottom: 1px solid rgba(58,52,46,0.6);
+    }
+    .ex-list li:last-child { border-bottom: none; }
+    .ex-list li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
+    .ex-list em { color: var(--text); font-style: normal; font-weight: 600; }
+    .ex-list .zh-note { font-size: 1.05rem; color: var(--gold); margin-left: 0.5rem; }
+
+    .practice-area {
+      border-top: 1px solid var(--border);
+      margin-top: 1.1rem;
+      padding-top: 1rem;
+    }
+    .practice-area h4 {
+      font-family: 'Courier Prime', monospace;
+      font-size: 1.05rem;
+      letter-spacing: 0.18em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+    }
+
+    .fill-row {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.7rem;
+      flex-wrap: wrap;
+      font-size: 1.1rem;
+    }
+    .fill-row span { flex: 1; min-width: 180px; color: var(--text-dim); }
+    .fill-row input {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.1rem;
+      width: 120px;
+      border: none;
+      border-bottom: 1px solid var(--border-lt);
+      background: transparent;
+      color: var(--text);
+      padding: 0.08rem 0.3rem;
+      outline: none;
+    }
+    .fill-row input:focus { border-bottom-color: var(--gold); }
+    .fill-row input.correct { border-bottom-color: var(--green); color: #7DBF9B; }
+    .fill-row input.wrong   { border-bottom-color: var(--red);   color: #C07070; }
+
+    .check-it {
+      font-family: 'Courier Prime', monospace;
+      font-size: 1.05rem;
+      letter-spacing: 0.08em;
+      border: 1px solid var(--border-lt);
+      background: none;
+      color: var(--text-dim);
+      padding: 0.2rem 0.5rem;
+      cursor: pointer;
+      transition: all 0.18s;
+    }
+    .check-it:hover { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+    .fill-fb {
+      font-family: 'Courier Prime', monospace;
+      font-size: 1rem;
+      min-width: 70px;
+    }
+
+    /* ════════════════════════════════
+       V. TRANSLATION
+    ════════════════════════════════ */
+    .trans-intro {
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .trans-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      margin-bottom: 0.6rem;
+      overflow: hidden;
+    }
+
+    .trans-zh {
+      padding: 0.85rem 1.2rem;
+      font-size: 1.3rem;
+      color: var(--text);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 0.7rem;
+    }
+    .trans-num {
+      font-family: 'Courier Prime', monospace;
+      font-size: 1.15rem;
+      color: var(--gold);
+      flex-shrink: 0;
+      margin-top: 0.18rem;
+    }
+
+    .trans-en {
+      padding: 0.7rem 1.2rem;
+      font-style: italic;
+      color: var(--text-dim);
+      font-size: 1.1rem;
+      filter: blur(5px);
+      user-select: none;
+      cursor: pointer;
+      transition: filter 0.35s ease;
+    }
+    .trans-en.revealed { filter: none; cursor: default; }
+
+    .trans-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.25rem 1.2rem 0.45rem;
+    }
+    .trans-session { font-family:'Courier Prime',monospace; font-size:0.9rem; color:var(--text-faint); letter-spacing:0.07em; }
+    .trans-tap     { font-family:'Courier Prime',monospace; font-size:0.9rem;  color:var(--gold);       letter-spacing:0.06em; }
+
+    .trans-controls {
+      display: flex;
+      gap: 0.7rem;
+      margin-top: 1.5rem;
+      justify-content: center;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2.5rem 1rem 2rem;
+      border-top: 1px solid var(--border);
+      font-family: 'Courier Prime', monospace;
+      font-size: 1.15rem;
+      letter-spacing: 0.2em;
+      color: var(--text-faint);
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 600px) {
+      .vocab-grid { grid-template-columns: repeat(2, 1fr); }
+      .frame-outer { inset: 1rem 1rem; }
+      .frame-inner { inset: 1.3rem 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══ -->
+<header>
+  <div class="frame-outer"></div>
+  <div class="frame-inner"></div>
+
+  <span class="header-eyebrow">✦ &nbsp; speaking review &nbsp; ✦</span>
+
+  <div class="header-title-block">
+    <span class="header-main">A Review in Five Chapters</span>
+    <span class="header-sub-text">The Anthology</span>
+  </div>
+
+  <div class="session-tags">
+    <span class="tag">Apr 02, 2025</span>
+    <span class="tag">Apr 06, 2025</span>
+    <span class="tag">Apr 13, 2025</span>
+  </div>
+</header>
+
+<!-- ═══ CHROME BANNER ═══ -->
+<div id="chromeBanner" style="display:none;background:#3A1A1A;border-bottom:1px solid #6B3030;padding:0.7rem 1.5rem;text-align:center;font-family:'Courier Prime',monospace;font-size:0.95rem;letter-spacing:0.1em;color:#C08080;">
+  ⚠ &nbsp; Audio requires <strong>Google Chrome</strong>. This page is open in Safari — please right-click the file → Open With → Google Chrome.
+</div>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="show('vocab',this)">I · Vocabulary</button>
+    <button class="nav-btn" onclick="show('listening',this)">II · Listening</button>
+    <button class="nav-btn" onclick="show('speaking',this)">III · Speaking</button>
+    <button class="nav-btn" onclick="show('grammar',this)">IV · Grammar</button>
+    <button class="nav-btn" onclick="show('translation',this)">V · Translation</button>
+  </div>
+</nav>
+
+<!-- ═══ MAIN ═══ -->
+<main>
+
+  <!-- I. VOCABULARY -->
+  <section id="vocab" class="section active">
+    <div class="section-header">
+      <span class="chapter-label">Chapter I</span>
+      <h2>The Vocabulary</h2>
+      <p>Click any card to reveal its meaning, Chinese, and example.</p>
+    </div>
+    <div class="vocab-filter">
+      <button class="filter-btn active" onclick="filterV('all',this)">All Words</button>
+      <button class="filter-btn" onclick="filterV('health',this)">Health &amp; Life</button>
+      <button class="filter-btn" onclick="filterV('finance',this)">Finance</button>
+      <button class="filter-btn" onclick="filterV('wordpair',this)">Word Pairs</button>
+      <button class="filter-btn" onclick="filterV('food',this)">Food &amp; Culture</button>
+    </div>
+    <div class="vocab-grid" id="vocabGrid"></div>
+    <div class="ornament">✦ &nbsp; every word a world &nbsp; ✦</div>
+  </section>
+
+  <!-- II. LISTENING -->
+  <section id="listening" class="section">
+    <div class="section-header">
+      <span class="chapter-label">Chapter II</span>
+      <h2>The Listening</h2>
+      <p>Press ▶ to hear each sentence. Listen once without looking — then repeat aloud.</p>
+    </div>
+    <div class="listen-tip">
+      💡 Listen to the full sentence first. Then press play again and speak along. Finally, try to say it from memory without any audio.
+    </div>
+    <div class="voice-bar">
+      <label>Speed:
+        <input type="range" id="rateSlider" min="0.70" max="1.30" step="0.05" value="0.88" oninput="setRate(this.value)">
+        <span id="rateLabel">0.88×</span>
+      </label>
+      <button class="btn" onclick="stopSpeak()">◼ Stop</button>
+      <span id="audioStatus" style="font-family:'Courier Prime',monospace;font-size:0.9rem;color:var(--gold);margin-left:auto;">Initialising…</span>
+    </div>
+    <div id="listenContent"></div>
+    <div class="ornament">✦ &nbsp; hear it, feel it, say it &nbsp; ✦</div>
+  </section>
+
+  <!-- III. SPEAKING -->
+  <section id="speaking" class="section">
+    <div class="section-header">
+      <span class="chapter-label">Chapter III</span>
+      <h2>The Speaking</h2>
+      <p>Start the timer and speak without stopping. Click Hint if you get stuck.</p>
+    </div>
+    <div id="speakingContent"></div>
+    <div class="ornament">✦ &nbsp; keep speaking &nbsp; ✦</div>
+  </section>
+
+  <!-- IV. GRAMMAR -->
+  <section id="grammar" class="section">
+    <div class="section-header">
+      <span class="chapter-label">Chapter IV</span>
+      <h2>The Grammar</h2>
+      <p>Review each rule, then fill in the blanks below.</p>
+    </div>
+    <div id="grammarContent"></div>
+    <div class="ornament">✦ &nbsp; grammar is the architecture of thought &nbsp; ✦</div>
+  </section>
+
+  <!-- V. TRANSLATION -->
+  <section id="translation" class="section">
+    <div class="section-header">
+      <span class="chapter-label">Chapter V</span>
+      <h2>The Translation</h2>
+      <p>Read the Chinese, form the English in your mind, then click the blurred line to reveal.</p>
+    </div>
+    <div id="translationContent"></div>
+    <div class="ornament">✦ &nbsp; between two languages lives a third truth &nbsp; ✦</div>
+  </section>
+
+</main>
+
+<footer>
+  Beitun · Speaking Review &nbsp;✦&nbsp; 250402 · 250406 · 250413
+</footer>
+
+<!-- ══════════════════════ DATA & LOGIC ══════════════════════ -->
+<script>
+const VOCAB = [
+  { w:"apprehension", pos:"n.", zh:"（深度）擔憂；焦慮", def:"deep anxiety or fear about the future — stronger than 'worry'", ex:"She felt apprehension before her first public speech.", cat:"health", s:"250402" },
+  { w:"symptom", pos:"n.", zh:"症狀", def:"a sign or indication of illness or a problem", ex:"A runny nose is a common symptom of a cold.", cat:"health", s:"250402" },
+  { w:"live at the present", pos:"phrase", zh:"活在當下", def:"to focus fully on the current moment rather than the past or future", ex:"After her recovery, she learned to live at the present.", cat:"health", s:"250402" },
+  { w:"community of life", pos:"phrase", zh:"生命共同體", def:"a group sharing a common fate or deep bond", ex:"A family is a community of life.", cat:"health", s:"250402" },
+  { w:"informative", pos:"adj.", zh:"富有知識性的", def:"providing a lot of useful or educational information", ex:"The documentary was very informative.", cat:"health", s:"250402" },
+  { w:"go / get on board", pos:"phrase", zh:"加入、參與計劃", def:"to join or agree to participate in a plan or project", ex:"Are you ready to get on board with the new initiative?", cat:"health", s:"250402" },
+  { w:"transparent", pos:"adj.", zh:"透明的；坦誠的", def:"clear and honest; easy to see through or understand", ex:"The company is transparent about its pricing policy.", cat:"health", s:"250406" },
+  { w:"insecure", pos:"adj.", zh:"沒有安全感的", def:"lacking confidence; feeling vulnerable or unsure of oneself", ex:"He felt insecure about speaking English with strangers.", cat:"health", s:"250406" },
+  { w:"Federal Reserve (The Fed)", pos:"n.", zh:"聯準會", def:"the central banking system of the US; controls interest rates", ex:"The Fed raised interest rates to control inflation.", cat:"finance", s:"250413" },
+  { w:"bonds", pos:"n.", zh:"債券", def:"a fixed-income investment — you lend money and receive interest", ex:"Government bonds are considered very safe investments.", cat:"finance", s:"250413" },
+  { w:"futures", pos:"n.", zh:"期貨", def:"contracts to buy or sell an asset at a fixed price at a future date", ex:"Oil futures rose sharply after the news.", cat:"finance", s:"250413" },
+  { w:"dividend", pos:"n.", zh:"股息", def:"a portion of a company's profits paid out to shareholders", ex:"TSMC paid a generous dividend this quarter.", cat:"finance", s:"250413" },
+  { w:"bear market", pos:"n.", zh:"熊市（下跌市場）", def:"a market in which prices are falling, causing investors to sell", ex:"During the bear market, many investors moved to bonds.", cat:"finance", s:"250413" },
+  { w:"bull market", pos:"n.", zh:"牛市（上漲市場）", def:"a market in which prices are rising or expected to rise", ex:"Tech stocks led the bull market last year.", cat:"finance", s:"250413" },
+  { w:"limit up / limit down", pos:"phrase", zh:"漲停 / 跌停", def:"when a stock hits the maximum allowed daily price increase or decrease", ex:"Fear of the trade war caused several stocks to limit down.", cat:"finance", s:"250413" },
+  { w:"exchange rate", pos:"n.", zh:"匯率", def:"how much one currency is worth in terms of another", ex:"A strong dollar affects the exchange rate with the Taiwan dollar.", cat:"finance", s:"250413" },
+  { w:"asset allocation", pos:"n.", zh:"資產分配", def:"spreading investments across asset types to manage risk", ex:"Good asset allocation protects against market crashes.", cat:"finance", s:"250413" },
+  { w:"odd lot", pos:"n.", zh:"零股", def:"a smaller-than-standard quantity of stock (less than 100 shares)", ex:"Young investors often buy odd lots of expensive stocks.", cat:"finance", s:"250413" },
+  { w:"affect vs. impact vs. effect", pos:"v./n.", zh:"影響（三個層次）", def:"affect (v.) = emotional; impact (v./n.) = strong result + on; effect (n.) = outcome + on", ex:"This teacher affects her deeply. / The law will impact the economy.", cat:"wordpair", s:"250402" },
+  { w:"increase / decrease / reduce", pos:"v.", zh:"升降 vs. 降低", def:"increase/decrease = change in amount (result); reduce = deliberate action to lower (process)", ex:"Temp decreased overnight. / We need to reduce costs.", cat:"wordpair", s:"250402" },
+  { w:"various vs. diverse", pos:"adj.", zh:"多樣 vs. 多元", def:"various = many different types; diverse = culturally or experientially varied", ex:"We have various rice dishes. / Our team is wonderfully diverse.", cat:"wordpair", s:"250402" },
+  { w:"generation gap", pos:"n.", zh:"代溝", def:"the difference in attitudes and values between different age groups", ex:"The generation gap between parents and teens is very common.", cat:"wordpair", s:"250402" },
+  { w:"nothing / anything / something + adj.", pos:"grammar", zh:"不定代名詞 + 形容詞", def:"indefinite pronouns come BEFORE the adjective (not a noun)", ex:"Something delicious? / Nothing interesting. / Anything cold?", cat:"wordpair", s:"250413" },
+  { w:"staple food", pos:"n.", zh:"主食", def:"a food that forms the basis of a diet and is eaten frequently", ex:"Rice is the staple food in most of East Asia.", cat:"food", s:"250402" },
+  { w:"cuisine", pos:"n.", zh:"美食；烹飪風格", def:"a style of cooking typical of a particular region or culture", ex:"Taiwan has a rich and diverse street food cuisine.", cat:"food", s:"250406" },
+  { w:"bitterness", pos:"n.", zh:"苦味；苦澀感", def:"a sharp, unpleasant taste; or a feeling of resentment", ex:"The bitterness of the dark chocolate surprised her.", cat:"food", s:"250406" },
+  { w:"appetizer", pos:"n.", zh:"前菜；開胃菜", def:"a small dish served before the main meal to stimulate appetite", ex:"We ordered spring rolls as an appetizer.", cat:"food", s:"250406" },
+];
+
+const LISTEN = [
+  { cat:"Life & Reflection", items:[
+    { en:"We should cherish every moment because life is short.", zh:"我們應該珍惜每一刻，因為生命是短暫的。" },
+    { en:"Death is a process that can't be avoided by everyone.", zh:"死亡是每個人都無法避免的過程。" },
+    { en:"In sadness, we still need to learn to move forward.", zh:"在悲傷中，我們仍然需要學習繼續前進。" },
+    { en:"The hospice ward helps patients pass away with less pain.", zh:"安寧病房幫助病患以較少的痛苦離世。" },
+    { en:"You should learn how to get along with yourself.", zh:"你應該學習如何與自己相處。" },
+  ]},
+  { cat:"Spring Break & Food", items:[
+    { en:"Spring break is a time for students to relax and rest.", zh:"春假是學生放鬆和休息的時間。" },
+    { en:"Many families visit their relatives or take a vacation during spring break.", zh:"許多家庭在春假期間探望親戚或度假。" },
+    { en:"Some people enjoy outdoor activities like camping or hiking during spring break.", zh:"有些人喜歡在春假時參加露營或遠足等戶外活動。" },
+    { en:"In Asia, rice is a common staple food and is eaten with various dishes.", zh:"在亞洲，米飯是一種常見的主食，搭配各種菜餚食用。" },
+    { en:"Glutinous rice is stickier than regular rice and is good for making desserts.", zh:"糯米比一般的米更有黏性，適合用來製作甜點。" },
+    { en:"In addition to white rice, there are healthier options like brown rice and black rice.", zh:"除了白米飯，還有糙米和黑米等更健康的選擇。" },
+    { en:"Coconut rice is a popular traditional cuisine in Southeast Asia.", zh:"椰漿飯是東南亞一道受歡迎的傳統美食。" },
+  ]},
+  { cat:"Finance & Trade", items:[
+    { en:"Trump decided to raise tariffs on Chinese goods to protect American factories.", zh:"川普決定提高中國商品的關稅，想要保護美國的工廠。" },
+    { en:"Because the tariffs went up, the stock market dropped a little.", zh:"因為關稅變高，股市出現了一些下跌。" },
+    { en:"Many people are worried that the trade war will slow down the global economy.", zh:"很多人擔心貿易戰會讓全球經濟變慢。" },
+    { en:"Some companies say they will raise product prices to deal with the tariffs.", zh:"一些公司說他們要提高產品價格來應付關稅。" },
+    { en:"Some investors started putting their money in safer places.", zh:"有些投資人開始把錢放在比較安全的地方。" },
+    { en:"We have faith in TSMC.", zh:"我們對台積電很有信念。" },
+  ]},
+  { cat:"Grammar in Action", items:[
+    { en:"The temperature decreased overnight.", zh:"氣溫在一夜之間下降了。" },
+    { en:"In order to increase revenue, we need to reduce the cost.", zh:"為了增加收入，我們需要降低成本。" },
+    { en:"This teacher affects her deeply.", zh:"這位老師對她影響很深。" },
+    { en:"The new law will have a huge impact on the economy.", zh:"這項新法律將對經濟造成重大影響。" },
+    { en:"Is there something delicious nearby?", zh:"附近有什麼好吃的嗎？" },
+    { en:"There is nothing interesting on TV tonight.", zh:"今晚電視上沒有什麼有趣的節目。" },
+    { en:"Do you want anything cold to drink?", zh:"你想喝些什麼冰的嗎？" },
+  ]},
+];
+
+const SPEAK = [
+  { level:"Discussion · 90 seconds", q:"Do you think eating less rice is good for your health? What foods would you recommend as a substitute?", hints:["Think about: nutrition, tradition, personal habits, farming culture in Taiwan","Key words: staple food, substitute, various, nutritious, in addition to…","Structure: Give your opinion → 2 reasons → 1 personal example"], sec:90 },
+  { level:"Discussion · 90 seconds", q:"How do you think IoT (Internet of Things) will change the manufacturing industry in the next 10 years?", hints:["Think about: automation, data, efficiency, job changes, sensors","Key words: impact on, various industries, allocate, derive from","Structure: current situation → future changes → your opinion"], sec:90 },
+  { level:"Opinion · 60 seconds", q:"Many people say the trade war between the US and China is affecting everyday life. Do you agree? Why or why not?", hints:["Key words: tariffs, exchange rate, affect vs. impact, stock market","Think about: rising prices, job security, technology access","Give a specific real-life example"], sec:60 },
+  { level:"Personal · 60 seconds", q:"\"You should learn how to get along with yourself.\" What does this mean to you? Do you find it easy or difficult?", hints:["Key words: apprehension, live at the present, insecure, transparent","Think about: alone time, hobbies, self-reflection","Share a personal story or experience"], sec:60 },
+  { level:"Explain · 45 seconds", q:"A friend doesn't know what a bull market or bear market means. Explain both terms in simple, everyday English.", hints:["bull market = prices going UP; bear market = prices going DOWN","Use a simple comparison or analogy to explain","Try to use: dividend, limit up, invest"], sec:45 },
+  { level:"Quick Response · 30 seconds", q:"Use 'something', 'anything', or 'nothing' + an adjective in three different sentences about food.", hints:["E.g. 'Is there something spicy on the menu?' / 'I want nothing sweet tonight.'","Remember: the adjective comes AFTER the indefinite pronoun"], sec:30 },
+];
+
+const GRAMMAR = [
+  { title:"Nothing / Anything / Something + Adjective", formula:"[indefinite pronoun] + [adjective] — the adjective FOLLOWS the pronoun",
+    examples:[
+      { en:"Is there <em>something delicious</em> nearby?", zh:"附近有什麼好吃的？" },
+      { en:"Do you want <em>anything cold</em> to drink?", zh:"你想喝些什麼冰的嗎？" },
+      { en:"There is <em>nothing interesting</em> on TV tonight.", zh:"今晚沒有什麼有趣的。" },
+      { en:"I need <em>something warm</em> to wear.", zh:"我需要一件保暖的衣物。" },
+    ],
+    exs:[
+      { q:"Is there _____ special on the menu?", a:"something", zh:"今天菜單上有什麼特別的嗎？" },
+      { q:"There is _____ wrong with this sentence.", a:"nothing", zh:"這句話沒有任何問題。" },
+      { q:"Did you find _____ useful in today's lesson?", a:"anything", zh:"你在今天的課堂上有找到什麼有用的嗎？" },
+    ]
+  },
+  { title:"Keep / Stay + Adjective", formula:"keep / stay + [adjective] — describes a continuing state · also: look / sound / taste / smell + adj.",
+    examples:[
+      { en:"We need to practice <em>keeping</em> our emotions <em>stable</em>.", zh:"我們需要練習保持情緒穩定。" },
+      { en:"Please <em>stay calm</em> during the emergency.", zh:"請在緊急情況下保持冷靜。" },
+      { en:"You <em>look confident</em> today!", zh:"你今天看起來很有自信！" },
+      { en:"This soup <em>tastes</em> so <em>rich</em> and <em>warm</em>.", zh:"這湯嚐起來濃郁又溫暖。" },
+    ],
+    exs:[
+      { q:"She worked hard to _____ focused.", a:"keep", zh:"她努力保持專注。" },
+      { q:"Please _____ quiet in the library.", a:"stay", zh:"在圖書館請保持安靜。" },
+      { q:"That coffee _____ bitter. (taste)", a:"tastes", zh:"那杯咖啡嚐起來很苦。" },
+    ]
+  },
+  { title:"Increase / Decrease / Reduce", formula:"increase / decrease = result of change · reduce = deliberate action to make something smaller",
+    examples:[
+      { en:"The temperature <em>decreased</em> overnight.", zh:"氣溫在一夜之間下降了。" },
+      { en:"In order to <em>increase</em> revenue, we need to <em>reduce</em> costs.", zh:"為了增加收入，我們需要降低成本。" },
+      { en:"The number of students <em>decreased</em> after the pandemic.", zh:"疫情後學生人數減少了。" },
+      { en:"The government wants to <em>reduce</em> food waste.", zh:"政府希望減少食物浪費。" },
+    ],
+    exs:[
+      { q:"The company decided to _____ waste by 30%.", a:"reduce", zh:"公司決定減少30%的浪費。" },
+      { q:"Traffic accidents _____ after the new law.", a:"decreased", zh:"新法律後交通事故減少了。" },
+      { q:"Our sales _____ by 20% last quarter.", a:"increased", zh:"我們上季銷售額增加了20%。" },
+    ]
+  },
+  { title:"Affect / Impact / Effect", formula:"affect (v.) = emotional influence · impact (v./n.) = strong significant result + on · effect (n.) = outcome + on",
+    examples:[
+      { en:"This teacher <em>affects</em> her deeply.", zh:"這位老師對她影響很深。" },
+      { en:"The new law will <em>impact</em> the economy.", zh:"新法律將對經濟產生影響。" },
+      { en:"The earthquake had a huge <em>impact on</em> society.", zh:"地震對社會造成了巨大影響。" },
+      { en:"The <em>effect</em> of this medicine is very fast.", zh:"這種藥的效果非常快。" },
+    ],
+    exs:[
+      { q:"Lack of sleep can _____ your concentration. (affect/effect)", a:"affect", zh:"睡眠不足會影響你的專注力。" },
+      { q:"The policy had a huge _____ on small businesses. (impact/effect)", a:"impact", zh:"這政策對小企業影響很大。" },
+      { q:"What are the long-term _____ of stress? (effects/affects)", a:"effects", zh:"長期壓力有什麼影響？" },
+    ]
+  },
+];
+
+const TRANS = [
+  { zh:"春假是一個讓學生放鬆和休息的時間", en:"Spring break is a time for students to relax and rest.", s:"250402" },
+  { zh:"許多家庭會趁春假去度假或探望親戚", en:"Many families take a vacation or visit relatives during spring break.", s:"250402" },
+  { zh:"有些人喜歡在春假時參加戶外活動，比如露營或遠足", en:"Some people enjoy outdoor activities like camping or hiking during spring break.", s:"250402" },
+  { zh:"在某些國家，春假期間會舉辦音樂節", en:"In some countries, music festivals are held during spring break.", s:"250402" },
+  { zh:"一些學生利用春假複習功課，準備考試", en:"Some students use spring break to review their lessons and prepare for exams.", s:"250402" },
+  { zh:"在亞洲，米飯是一種常見的主食，搭配各種菜餚一起食用", en:"In Asia, rice is a common staple food and is eaten with various dishes.", s:"250402" },
+  { zh:"糯米比一般的米更有黏性，適合用來製作甜點", en:"Glutinous rice is stickier than regular rice and is good for making desserts.", s:"250402" },
+  { zh:"除了白米飯，還有糙米和黑米等更健康的選擇", en:"Besides white rice, there are healthier options like brown rice and black rice.", s:"250402" },
+  { zh:"日本和韓國很多都是以米飯為主的料理", en:"Japan and Korea have many rice-based dishes.", s:"250402" },
+  { zh:"在東南亞，椰漿飯是一道受歡迎的傳統料理", en:"In Southeast Asia, coconut rice is a popular traditional dish.", s:"250402" },
+  { zh:"川普決定提高中國商品的關稅，想要保護美國的工廠", en:"Trump decided to raise tariffs on Chinese goods to protect American factories.", s:"250413" },
+  { zh:"因為關稅變高，股市出現了一些下跌", en:"Because the tariffs went up, the stock market dropped a little.", s:"250413" },
+  { zh:"很多人擔心貿易戰會讓全球經濟變慢", en:"Many people are worried that the trade war will slow down the global economy.", s:"250413" },
+  { zh:"一些公司說他們要提高產品價格來應付關稅", en:"Some companies say they will raise product prices to deal with the tariffs.", s:"250413" },
+  { zh:"有些投資人開始把錢放在比較安全的地方", en:"Some investors started putting their money in safer places.", s:"250413" },
+];
+
+// ── RENDER: VOCAB ───────────────────────────────────────
+function renderVocab(filter) {
+  const list = filter === 'all' ? VOCAB : VOCAB.filter(v => v.cat === filter);
+  document.getElementById('vocabGrid').innerHTML = list.map(v => `
+    <div class="vocab-card" onclick="this.classList.toggle('flipped')" data-cat="${v.cat}">
+      <span class="v-badge">${v.s}</span>
+      <span class="v-word">${v.w}</span>
+      <span class="v-pos">${v.pos}</span>
+      <div class="v-def">${v.def}</div>
+      <div class="v-zh">${v.zh}</div>
+      <div class="v-example">"${v.ex}"</div>
+      <span class="flip-hint">tap to reveal</span>
+    </div>`).join('');
+}
+function filterV(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderVocab(cat);
+}
+
+// ── AUDIO ENGINE ─────────────────────────────────────────
+// Token pattern: every speak() call gets a unique token.
+// Callbacks from older calls silently self-cancel — no repeat, ever.
+// Desktop Chrome  → Polly / StreamElements neural voice
+// Mobile + fallback → Web Speech API (no network, no autoplay block)
+
+let activeAudio = null;
+let speakToken  = 0;      // increments on every new call; guards all callbacks
+let spRate      = 0.88;
+const POLLY_VOICE = 'Salli';
+
+const isMobile        = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+const isDesktopSafari = !isMobile && /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+const isIOS           = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+function setStatus(msg, color) {
+  const el = document.getElementById('audioStatus');
+  if (el) { el.textContent = msg; el.style.color = color || 'var(--gold)'; }
+}
+
+function initVoices() {
+  if (isDesktopSafari) {
+    document.getElementById('chromeBanner').style.display = 'block';
+    setStatus('⚠ Open in Chrome on desktop', '#C07070');
+    return;
+  }
+  if (window.speechSynthesis) {
+    window.speechSynthesis.getVoices();
+    window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+  }
+  setStatus('✓ Ready — tap ▶ to listen', '#7DBF9B');
+}
+
+function setRate(val) {
+  spRate = parseFloat(val);
+  document.getElementById('rateLabel').textContent = parseFloat(val).toFixed(2) + '×';
+  if (activeAudio) activeAudio.playbackRate = spRate;
+}
+
+function clearActive() {
+  document.querySelectorAll('.play-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.listen-row').forEach(r => r.classList.remove('playing'));
+}
+
+// Stop all audio and invalidate every in-flight callback by bumping the token
+function stopSpeak() {
+  speakToken++;
+  if (activeAudio) { activeAudio.pause(); activeAudio.src = ''; activeAudio = null; }
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
+  clearActive();
+  setStatus('✓ Ready — tap ▶ to listen', '#7DBF9B');
+}
+
+// Add natural breathing pauses for browser TTS
+function enrichText(raw) {
+  return raw
+    .replace(/—/g, ', ')
+    .replace(/([;:])\s+/g, '$1  ')
+    .replace(/,\s+/g, ',  ')
+    .trim();
+}
+
+// Web Speech API path (mobile primary, desktop fallback)
+// token: only act on callbacks if no newer call has started
+function speakWSA(text, btn, token) {
+  if (!window.speechSynthesis) {
+    setStatus('⚠ Audio unavailable', '#C07070'); clearActive(); return;
+  }
+  window.speechSynthesis.cancel();
+
+  // Wait for cancel() to fully flush before queuing new speech
+  setTimeout(() => {
+    if (speakToken !== token) return;   // a newer tap arrived while we waited
+
+    const u = new SpeechSynthesisUtterance(enrichText(text));
+    u.lang = 'en-US'; u.rate = spRate; u.pitch = 0.95; u.volume = 1;
+
+    const voices = window.speechSynthesis.getVoices();
+    const preferred = ['Samantha', 'Karen', 'Allison', 'Google US English',
+                       'Microsoft Aria', 'Microsoft Jenny', 'Alex', 'Victoria'];
+    let pick = null;
+    for (const name of preferred) {
+      pick = voices.find(v => v.name.includes(name) && v.lang.startsWith('en'));
+      if (pick) break;
+    }
+    if (!pick) pick = voices.find(v => v.lang === 'en-US');
+    if (!pick) pick = voices.find(v => v.lang.startsWith('en'));
+    if (pick) u.voice = pick;
+
+    if (btn) btn.classList.add('active');
+    setStatus('▶ Speaking…', 'var(--text-dim)');
+
+    // iOS silent-stop watchdog: poll every 300 ms; NEVER pause/resume (that causes replay)
+    let iosTimer = null;
+    if (isIOS) {
+      iosTimer = setInterval(() => {
+        if (speakToken !== token) { clearInterval(iosTimer); return; }
+        if (!window.speechSynthesis.speaking && !window.speechSynthesis.pending) {
+          clearInterval(iosTimer);
+          // onend didn't fire — tidy up manually
+          if (speakToken === token) {
+            speakToken++;
+            clearActive();
+            setStatus('✓ Ready — tap ▶ to listen', '#7DBF9B');
+          }
+        }
+      }, 300);
+    }
+
+    u.onend = () => {
+      if (iosTimer) { clearInterval(iosTimer); iosTimer = null; }
+      if (speakToken !== token) return;   // stale — discard
+      speakToken++;
+      clearActive();
+      setStatus('✓ Ready — tap ▶ to listen', '#7DBF9B');
+    };
+
+    u.onerror = (e) => {
+      if (iosTimer) { clearInterval(iosTimer); iosTimer = null; }
+      if (e.error === 'interrupted') return;   // expected when stopSpeak() cancels
+      if (speakToken !== token) return;
+      speakToken++;
+      clearActive();
+      setStatus('⚠ Audio error', '#C07070');
+    };
+
+    window.speechSynthesis.speak(u);
+  }, 250);
+}
+
+// Main entry point
+function speakText(text, btn) {
+  if (isDesktopSafari) {
+    document.getElementById('chromeBanner').style.display = 'block'; return;
+  }
+
+  // Tapping the active button again = stop
+  if (btn && btn.classList.contains('active')) { stopSpeak(); return; }
+
+  // Kill whatever was playing and grab a fresh token
+  stopSpeak();
+  const myToken = speakToken;
+
+  if (btn) {
+    btn.classList.add('active');
+    const row = btn.closest('.listen-row');
+    if (row) row.classList.add('playing');
+  }
+
+  // All devices: try Polly neural voice first (button tap = user gesture = autoplay allowed)
+  // WSA is only used if Polly fails (no network, error, etc.)
+  setStatus('⏳ Loading voice…', 'var(--text-dim)');
+  const url = 'https://api.streamelements.com/kappa/v2/speech?voice='
+    + POLLY_VOICE + '&text=' + encodeURIComponent(text);
+  const audio = new Audio(url);
+  activeAudio = audio;
+
+  audio.addEventListener('playing', () => {
+    if (speakToken !== myToken) { audio.pause(); return; }
+    setStatus('▶ Playing…', 'var(--text-dim)');
+  });
+  audio.addEventListener('ended', () => {
+    if (speakToken !== myToken) return;
+    activeAudio = null; speakToken++; clearActive();
+    setStatus('✓ Done', '#7DBF9B');
+    setTimeout(() => setStatus('✓ Ready — tap ▶ to listen', '#7DBF9B'), 1200);
+  });
+  audio.addEventListener('error', () => {
+    if (speakToken !== myToken) { activeAudio = null; return; }
+    activeAudio = null;
+    setStatus('Switching to browser voice…', 'var(--gold)');
+    speakWSA(text, btn, myToken);
+  });
+  audio.play().catch(() => {
+    if (speakToken !== myToken) { activeAudio = null; return; }
+    activeAudio = null;
+    speakWSA(text, btn, myToken);
+  });
+  audio.playbackRate = spRate;
+}
+
+function toggleZh(btn) {
+  const zh = btn.nextElementSibling;
+  zh.classList.toggle('visible');
+  btn.textContent = zh.classList.contains('visible') ? 'hide Chinese ↑' : 'show Chinese ↓';
+}
+function renderListening() {
+  document.getElementById('listenContent').innerHTML = LISTEN.map(g => `
+    <div class="listen-group">
+      <div class="listen-group-title">${g.cat}</div>
+      ${g.items.map(item => `
+        <div class="listen-row">
+          <button class="play-btn" data-speak="${esc(item.en)}" onclick="speakText(this.dataset.speak,this)">▶</button>
+          <div class="listen-text">
+            <div class="listen-en">${item.en}</div>
+            <button class="zh-toggle" onclick="toggleZh(this)">show Chinese ↓</button>
+            <div class="listen-zh">${item.zh}</div>
+          </div>
+        </div>`).join('')}
+    </div>`).join('');
+}
+
+// ── RENDER: SPEAKING ────────────────────────────────────
+const timers = {};
+function ft(s) { return `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`; }
+function startTimer(i, total) {
+  if (timers[i]) clearInterval(timers[i]);
+  let rem = total;
+  const td = document.getElementById(`td${i}`);
+  const pf = document.getElementById(`pf${i}`);
+  td.classList.remove('urgent');
+  pf.style.transition = 'none'; pf.style.width = '100%';
+  timers[i] = setInterval(() => {
+    rem--;
+    td.textContent = ft(rem);
+    pf.style.transition = 'width 1s linear';
+    pf.style.width = (rem / total * 100) + '%';
+    if (rem <= 10) td.classList.add('urgent');
+    if (rem <= 0) { clearInterval(timers[i]); td.textContent = 'Done ✓'; pf.style.width = '0%'; }
+  }, 1000);
+}
+function resetTimer(i, total) {
+  if (timers[i]) clearInterval(timers[i]);
+  document.getElementById(`td${i}`).textContent = ft(total);
+  document.getElementById(`td${i}`).classList.remove('urgent');
+  document.getElementById(`pf${i}`).style.width = '100%';
+}
+function toggleHint(i) { document.getElementById(`hint${i}`).classList.toggle('visible'); }
+function renderSpeaking() {
+  document.getElementById('speakingContent').innerHTML = SPEAK.map((p, i) => `
+    <div class="prompt-card">
+      <span class="prompt-level">${p.level}</span>
+      <div class="prompt-q">"${p.q}"</div>
+      <div class="prompt-hints" id="hint${i}">${p.hints.map(h => `<p>💡 ${h}</p>`).join('')}</div>
+      <div class="prog-bar"><div class="prog-fill" id="pf${i}"></div></div>
+      <div class="prompt-actions" style="margin-top:1rem;">
+        <div class="timer-dig" id="td${i}">${ft(p.sec)}</div>
+        <button class="btn primary" onclick="startTimer(${i},${p.sec})">▶ Start</button>
+        <button class="btn" onclick="resetTimer(${i},${p.sec})">↺ Reset</button>
+        <button class="btn" onclick="toggleHint(${i})">💡 Hint</button>
+        <button class="btn" data-speak="${esc(p.q)}" onclick="speakText(this.dataset.speak,null)">🔊 Hear</button>
+      </div>
+    </div>`).join('');
+}
+
+// ── RENDER: GRAMMAR ─────────────────────────────────────
+function checkFill(gi, ei, correct) {
+  const inp = document.getElementById(`g${gi}_${ei}`);
+  const fb  = document.getElementById(`fb${gi}_${ei}`);
+  const val = inp.value.trim().toLowerCase();
+  if (val === correct.toLowerCase()) {
+    inp.classList.add('correct'); inp.classList.remove('wrong');
+    fb.textContent = '✓'; fb.style.color = '#7DBF9B';
+  } else {
+    inp.classList.add('wrong'); inp.classList.remove('correct');
+    fb.textContent = `→ ${correct}`; fb.style.color = '#C07070';
+  }
+}
+function renderGrammar() {
+  document.getElementById('grammarContent').innerHTML = GRAMMAR.map((g, gi) => `
+    <div class="grammar-block">
+      <h3>${g.title}</h3>
+      <div class="formula-box">${g.formula}</div>
+      <ul class="ex-list">
+        ${g.examples.map(e => `<li>${e.en} <span class="zh-note">${e.zh}</span></li>`).join('')}
+      </ul>
+      <div class="practice-area">
+        <h4>Fill in the blank</h4>
+        ${g.exs.map((ex, ei) => `
+          <div class="fill-row">
+            <span>${ex.q.replace('_____', `<input id="g${gi}_${ei}" type="text" placeholder="____" autocomplete="off">`)}</span>
+            <button class="check-it" onclick="checkFill(${gi},${ei},'${ex.a}')">Check</button>
+            <span class="fill-fb" id="fb${gi}_${ei}"></span>
+          </div>
+          <div style="font-size:0.78rem;color:var(--text-faint);font-style:italic;margin:-0.3rem 0 0.6rem 0.3rem;">${ex.zh}</div>
+        `).join('')}
+      </div>
+    </div>`).join('');
+}
+
+// ── RENDER: TRANSLATION ─────────────────────────────────
+function renderTranslation() {
+  document.getElementById('translationContent').innerHTML = `
+    <p class="trans-intro">Form the English sentence in your mind, then click the blurred line to reveal.</p>
+    ${TRANS.map((t, i) => `
+      <div class="trans-card">
+        <div class="trans-zh"><span class="trans-num">${String(i+1).padStart(2,'0')}.</span><span>${t.zh}</span></div>
+        <div class="trans-en" id="te${i}" onclick="this.classList.add('revealed')">${t.en}</div>
+        <div class="trans-footer">
+          <span class="trans-session">session ${t.s}</span>
+          <span class="trans-tap">tap to reveal →</span>
+        </div>
+      </div>`).join('')}
+    <div class="trans-controls">
+      <button class="btn" onclick="TRANS.forEach((_,i)=>document.getElementById('te'+i).classList.add('revealed'))">Reveal All</button>
+      <button class="btn" onclick="TRANS.forEach((_,i)=>document.getElementById('te'+i).classList.remove('revealed'))">Hide All</button>
+    </div>`;
+}
+
+// ── HTML ESCAPE helper (fixes onclick attribute breakage) ─
+function esc(s) {
+  return String(s)
+    .replace(/&/g,'&amp;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;');
+}
+
+// ── NAV ─────────────────────────────────────────────────
+function show(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── INIT ─────────────────────────────────────────────────
+renderVocab('all');
+renderListening();
+renderSpeaking();
+renderGrammar();
+renderTranslation();
+initVoices();
+</script>
+</body>
+</html>
